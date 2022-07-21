@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"><head>
+    <meta charset="UTF-8">
+    <title>My Todo List</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3 th:class="title">My Todo List</h3>
+
+    <table class="table table-dark table-striped table-hover table-borderless">
+        <tr>
+            <td>#</td>
+            <td>Task</td>
+            <td>Status</td>
+        </tr>
+
+        <div th:each="item, iStat : ${list}">
+        <tr class="">
+            <td>
+                <p th:text="${iStat.index+1}"></p>
+            </td>
+            <td>
+                <div th:text="${item.task}">
+            </td>
+            <td>
+                <p>
+                    <input class="form-check" type="checkbox" id="task" th:checked="${item.status == 'DONE'}? true" >
+                </p>
+            </td>
+        </tr>
+        </div>
+    </table>
+</div>
+</body>
+</html>
