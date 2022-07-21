@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"><head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
     <meta charset="UTF-8">
     <title>My Todo List</title>
     <link rel="stylesheet"
@@ -16,6 +17,8 @@
             <td>#</td>
             <td>Task</td>
             <td>Status</td>
+            <td>Actions</td>
+
         </tr>
 
         <div th:each="item, iStat : ${list}">
@@ -24,16 +27,22 @@
                 <p th:text="${iStat.index+1}"></p>
             </td>
             <td>
-                <div th:text="${item.task}">
+                <div th:text="${item.task}"></div>
             </td>
             <td>
                 <p>
                     <input class="form-check" type="checkbox" id="task" th:checked="${item.status == 'DONE'}? true" >
                 </p>
             </td>
+            <td>
+                <button type="button" class="btn btn-light btn-outline-dark">Edit</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </td>
         </tr>
         </div>
     </table>
+    <a th:href="@{/addTaskForm}" class="btn mb-2 btn-outline-dark">Add Task</a>
+
 </div>
 </body>
 </html>
