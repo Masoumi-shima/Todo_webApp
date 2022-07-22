@@ -12,27 +12,20 @@
 <body>
 <div class="container">
 <h3>Add Task</h3>
-    <table class="table table-dark table-striped table-hover table-borderless">
+    </hr>
+    <a class="btn mb-2 btn-outline-dark" th:href="@{/}">Back to list</a>
+    </hr>
+        <form th:action="@{/saveTask}" th:object="${list}" class="form-inline" method="POST">
 
-        <tr>
-            <td>
-                <form th:object="${list}" th:action="@{/saveTask}" class="form-inline">
-                    <input type="hidden" th:field="*{id}">
-                    <input type="text" id="task" th:field="*{task}" placeholder="Enter a task">
-                </form>
-            </td>
-            <td>
-            <select class="form-control form-control-sm">
-                <div th:each="status : ${T(com.todo.TodoWebApp.todoList.Status).values()}">
+            <input type="hidden" th:field="*{id}">
+            <input type="text" th:field="*{task}" name="task" id="task" placeholder="Enter a task">
 
-                <option th:value="${status}" th:text="${status}"></option>
-                </div>
-            </select>
-
-            </td>
-        </tr>
-    </table>
-    <a class="btn mb-2 btn-outline-dark">Submit</a>
+            <Select name="status" th:field="*{status}">
+            <option th:each="state : ${T(com.todo.TodoWebApp.todoList.Status).values()}" th:text="${state}" th:value="${state}"></option><br>
+            </Select>
+            </hr>
+            <button class="btn btn-outline-dark" type="submit">Add</button>
+    </form>
 </div>
 
 
