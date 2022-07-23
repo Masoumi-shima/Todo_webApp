@@ -7,6 +7,9 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @Entity
@@ -23,6 +26,7 @@ public class TodoList
     )
     private String id;
 
+    @NotBlank(message = "Enter a task")
     private String task;
 
     @Enumerated(EnumType.STRING)

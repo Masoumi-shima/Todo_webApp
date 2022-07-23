@@ -24,6 +24,7 @@
 
                     <td>
                         <input type="text" class="form-control" th:field="*{task}" name="task" id="task" placeholder="Enter a task">
+                        <span th:if="${#fields.hasErrors('task')}" th:errors="*{task}">Error</span>
                     </td>
 
                     <td>

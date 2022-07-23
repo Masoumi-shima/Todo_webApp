@@ -1,11 +1,15 @@
 package com.todo.TodoWebApp.todoList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.Instant;
 import java.util.List;
 
@@ -51,8 +55,12 @@ public class TodoListController
     }
 
     @PostMapping("/saveTask")
-    public String saveTask(@ModelAttribute TodoList list)
+    public String saveTask(@Validated @ModelAttribute TodoList list, BindingResult result, Model model)
     {
+        if (result.hasErrors())
+        {
+            return "redirect:/addTaskForm";
+        }
         todoListService.saveTask(list);
         return "redirect:/";
     }
