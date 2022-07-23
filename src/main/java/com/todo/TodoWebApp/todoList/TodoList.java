@@ -26,7 +26,7 @@ public class TodoList
     )
     private String id;
 
-    @NotBlank(message = "Enter a task")
+    @NotEmpty(message = "Enter a task")
     private String task;
 
     @Enumerated(EnumType.STRING)

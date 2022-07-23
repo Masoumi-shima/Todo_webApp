@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.time.Instant;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class TodoListController
     {
         ModelAndView modelAndView = new ModelAndView("list");
         List<TodoList> list = todoListRepository.findAll();
-        modelAndView.addObject("list", list);
+        modelAndView.addObject("todoList", list);
         return modelAndView;
     }
 
@@ -40,7 +39,7 @@ public class TodoListController
     {
         ModelAndView modelAndView = new ModelAndView("addTaskForm");
         TodoList list = new TodoList();
-        modelAndView.addObject("list", list);
+        modelAndView.addObject("todoList", list);
         return modelAndView;
     }
 
@@ -50,19 +49,21 @@ public class TodoListController
         TodoList list = todoListRepository.findById(id).get();
         list.setModificationDate(Instant.now());
         ModelAndView modelAndView = new ModelAndView("addTaskForm");
-        modelAndView.addObject("list", list);
+        modelAndView.addObject("todoList", list);
         return modelAndView;
     }
 
     @PostMapping("/saveTask")
-    public String saveTask(@Validated @ModelAttribute TodoList list, BindingResult result, Model model)
+    public ModelAndView saveTask(@Validated @ModelAttribute("todoList") TodoList list, BindingResult result)
     {
         if (result.hasErrors())
         {
-            return "redirect:/addTaskForm";
+            ModelAndView modelAndView = new ModelAndView("addTaskForm", HttpStatus.BAD_REQUEST);
+            modelAndView.addObject("todoList", list);
+            return modelAndView;
         }
         todoListService.saveTask(list);
-        return "redirect:/";
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping ("/delete/{id}")

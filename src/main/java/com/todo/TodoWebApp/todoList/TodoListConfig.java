@@ -17,7 +17,7 @@ public class TodoListConfig
         return args ->
         {
             TodoList todoList = new TodoList(
-                    "Miriam",
+                    "Test the first version of Todo app.",
                     Status.TODO
             );
             todoListRepository.save(todoList);

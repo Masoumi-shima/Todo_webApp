@@ -17,7 +17,7 @@
 
         <table class="table table-dark table-striped table-hover table-borderless">
             <tr>
-                <form th:action="@{/saveTask}" th:object="${list}" class="form-inline" method="POST">
+                <form th:action="@{/saveTask}" th:object="${todoList}" class="form-inline" method="POST">
                     <td>
                         <input type="hidden" th:field="*{id}">
                     </td>
