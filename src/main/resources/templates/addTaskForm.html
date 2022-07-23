@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Task</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h3>Add Task</h3>
+        <hr>
+
+        <table class="table table-dark table-striped table-hover table-borderless">
+            <tr>
+                <form th:action="@{/saveTask}" th:object="${todoList}" class="form-inline" method="POST">
+                    <td>
+                        <input type="hidden" th:field="*{id}">
+                    </td>
+
+                    <td>
+                        <input type="text" class="form-control" th:field="*{task}" name="task" id="task" placeholder="Enter a task">
+                        <span th:if="${#fields.hasErrors('task')}" th:errors="*{task}">Error</span>
+                    </td>
+
+                    <td>
+                        <Select name="status" th:field="*{status}">
+                            <option th:each="state : ${T(com.todo.TodoWebApp.todoList.Status).values()}" th:text="${state}" th:value="${state}"></option>
+                        </Select>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-outline-light" type="submit">Add</button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+
+        <hr>
+        <a th:href="@{/}" style="text-decoration-color: black">Back to list</a>
+    </div>
+</body>
+</html>
